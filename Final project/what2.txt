@@ -1,0 +1,55 @@
+black(1): b5
+
+    White (O) has captured 0 pieces
+    Black (X) has captured 0 pieces
+
+    A B C D E        Last move: Black B5
+  5 .(X). . . 5
+  4 . + . + . 4
+  3 . . + . . 3
+  2 . + . + . 2
+  1 . . . . . 1
+    A B C D E
+
+GNU Go is thinking...
+white(2): D4
+
+    White (O) has captured 0 pieces
+    Black (X) has captured 0 pieces
+
+    A B C D E        Last move: White D4
+  5 . X . . . 5
+  4 . + .(O). 4
+  3 . . + . . 3
+  2 . + . + . 2
+  1 . . . . . 1
+    A B C D E
+
+black(3): d1
+
+    White (O) has captured 0 pieces
+    Black (X) has captured 0 pieces
+
+    A B C D E        Last move: Black D1
+  5 . X . . . 5
+  4 . + . O . 4
+  3 . . + . . 3
+  2 . + . + . 2
+  1 . . .(X). 1
+    A B C D E
+
+GNU Go is thinking...
+white(4): C2
+
+    White (O) has captured 0 pieces
+    Black (X) has captured 0 pieces
+
+    A B C D E        Last move: White C2
+  5 . X . . . 5
+  4 . + . O . 4
+  3 . . + . . 3
+  2 . +(O)+ . 2
+  1 . . . X . 1
+    A B C D E
+
+black(5):

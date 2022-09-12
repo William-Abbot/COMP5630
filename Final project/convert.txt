@@ -1,0 +1,168 @@
+#getGnuGoData.py
+import random as rand
+import subprocess
+#import pyautogui
+import time
+from gtp import GoTextPipe, GoTextNetwork
+
+
+letters = ['A','B','C','D','E']
+
+numbers = ['1', '2', '3', '4', '5']
+
+alphabet = [(letters[j], numbers[i]) for i in range(4,-1,-1) for j in range(5)]
+
+labels = list()
+data = list()
+
+random_move = list()
+for i in range(4):
+    random_move.append(''.join(alphabet[rand.randrange(25)]))
+
+
+
+class FailedCommand(Exception):
+    pass
+
+def kill(process):
+    process.kill()
+    
+def convert(str):
+    newline_count = 0
+    arr = list()
+    line5 = [0]*5
+    line4 = [0]*5
+    line3 = [0]*5
+    line2 = [0]*5
+    line1 = [0]*5
+    position = 0
+    offset = 0
+    for s in range(len(str)):
+        if newline_count == 2:
+            line5[0] = str[s+3]
+            line5[1] = str[s+5]
+            line5[2] = str[s+7]
+            line5[3] = str[s+9]
+            line5[4] = str[s+11]
+            newline_count += 1
+    
+        if newline_count == 4:
+            s2 = str[s+5]
+            s4 = str[s+9]
+            if s2 == '+':
+                s2 = '.'
+            else:
+                s2 = str[s+5]
+            if s4 == '+':
+                s4 = '.'
+            else:
+                s4 = str[s+9]
+            line4[0] = str[s+3]
+            line4[1] = s2
+            line4[2] = str[s+7]
+            line4[3] = s4
+            line4[4] = str[s+11]
+            newline_count += 1
+        
+        if newline_count == 6:
+            s3 = [s+7]
+            if s3 == '+':
+                s3 = '.'
+            else:
+                s3 = str[s+7]
+            line3[0] = str[s+3]
+            line3[1] = str[s+5]
+            line3[2] = s3
+            line3[3] = str[s+9]
+            line3[4] = str[s+11]
+            newline_count += 1
+            
+        if newline_count == 8:
+            s2 = str[s+5]
+            s4 = str[s+9]
+            if s2 == '+':
+                s2 = '.'
+            else:
+                s2 = str[s+5]
+            if s4 == '+':
+                s4 = '.'
+            else:
+                s4 = str[s+9]
+            line2[0] = str[s+3]
+            line2[1] = s2
+            line2[2] = str[s+7]
+            line2[3] = s4
+            line2[4] = str[s+11]
+            newline_count += 1
+            
+        if newline_count == 10:
+            line1[0] = str[s+3]
+            line1[1] = str[s+5]
+            line1[2] = str[s+7]
+            line1[3] = str[s+9]
+            line1[4] = str[s+11]
+            newline_count += 1
+    
+        elif s < len(str)-1:
+            if str[s] == '\n':
+                newline_count += 1
+
+    arr = line5+line4+line3+line2+line1
+    for i in range(len(arr)):
+        if arr[i] == 'X':
+            arr[i] = 2
+        if arr[i] == 'O':
+            arr[i] = 1
+        if arr[i] == '.':
+            arr[i] = 0
+    return arr
+
+
+def addLabel(position):
+    temp = [0]*25
+    reverse_count = 5
+    for a in range(25):
+        if position == ''.join(alphabet[a]):
+                index = a
+    temp[index] = 1
+    labels.append(temp)
+
+
+
+cmd = "gnugo --mode gtp --gtp-listen 127.0.0.1:50001 --boardsize 5"
+p = subprocess.Popen(cmd.split())
+time.sleep(1)
+go = GoTextNetwork('localhost', 50001)
+
+
+move1 = go.play('black', random_move[0])
+data.append(convert(go.showboard()))
+
+move2 = go.genmove('white')
+addLabel(move2)
+print(move1)
+print(move2)
+print(go.showboard())
+
+error = False
+while(error == False):
+    try:
+        x = ''.join(alphabet[rand.randrange(25)])
+        move1 = go.play('black', x)
+        move1 = x
+        data.append(convert(go.showboard()))
+        
+    move2 = go.genmove('white')
+    addLabel(move2)
+    print(move1)
+    print(move2)
+    print(go.showboard())
+    
+    except:
+        error = True
+        continue
+    time.sleep(1)
+
+
+print(data)
+print(labels)

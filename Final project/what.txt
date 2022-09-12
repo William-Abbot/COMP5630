@@ -1,0 +1,87 @@
+Python 3.8.5 (tags/v3.8.5:580fbb0, Jul 20 2020, 15:43:08) [MSC v.1926 32 bit (Intel)] on win32
+Type "help", "copyright", "credits" or "license()" for more information.
+>>> 
+= RESTART: C:\Users\wabbo\AppData\Local\Programs\Python\Python38-32\Lib\site-packages\gtp\__init__.py
+>>> go = GoTextNetwork('localhost', 50001)
+Traceback (most recent call last):
+  File "<pyshell#0>", line 1, in <module>
+    go = GoTextNetwork('localhost', 50001)
+  File "C:\Users\wabbo\AppData\Local\Programs\Python\Python38-32\Lib\site-packages\gtp\__init__.py", line 51, in __init__
+    self.sock.connect((host, port))
+ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+>>> go = GoTextNetwork('localhost', 50001)
+Traceback (most recent call last):
+  File "<pyshell#1>", line 1, in <module>
+    go = GoTextNetwork('localhost', 50001)
+  File "C:\Users\wabbo\AppData\Local\Programs\Python\Python38-32\Lib\site-packages\gtp\__init__.py", line 51, in __init__
+    self.sock.connect((host, port))
+ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+>>> go = GoTextNetwork('localhost', 50001)
+>>> go.play(B5)
+Traceback (most recent call last):
+  File "<pyshell#3>", line 1, in <module>
+    go.play(B5)
+NameError: name 'B5' is not defined
+>>> go.play('black','B5')
+''
+>>> go.genmove('white')
+'C3'
+>>> go.play('black','d1')
+''
+>>> go.showboard()
+' \n   A B C D E\n 5 . X . . . 5\n 4 . + . + . 4\n 3 . . O . . 3\n 2 . + . + . 2     WHITE (O) has captured 0 stones\n 1 . . . X . 1     BLACK (X) has captured 0 stones\n   A B C D E\n\n'
+>>> print(repr(go.showboard()))
+' \n   A B C D E\n 5 . X . . . 5\n 4 . + . + . 4\n 3 . . O . . 3\n 2 . + . + . 2     WHITE (O) has captured 0 stones\n 1 . . . X . 1     BLACK (X) has captured 0 stones\n   A B C D E\n\n'
+>>> print(go.showboard())
+ 
+   A B C D E
+ 5 . X . . . 5
+ 4 . + . + . 4
+ 3 . . O . . 3
+ 2 . + . + . 2     WHITE (O) has captured 0 stones
+ 1 . . . X . 1     BLACK (X) has captured 0 stones
+   A B C D E
+
+
+>>> go.genmove('white')
+'B4'
+>>> print(go.showboard())
+ 
+   A B C D E
+ 5 . X . . . 5
+ 4 . O . + . 4
+ 3 . . O . . 3
+ 2 . + . + . 2     WHITE (O) has captured 0 stones
+ 1 . . . X . 1     BLACK (X) has captured 0 stones
+   A B C D E
+
+
+>>> go.play('E5','black')
+Traceback (most recent call last):
+  File "<pyshell#12>", line 1, in <module>
+    go.play('E5','black')
+  File "C:\Users\wabbo\AppData\Local\Programs\Python\Python38-32\Lib\site-packages\gtp\__init__.py", line 36, in play
+    return self._send('play {0} {1}'.format(color, position)).strip()
+  File "C:\Users\wabbo\AppData\Local\Programs\Python\Python38-32\Lib\site-packages\gtp\__init__.py", line 63, in _send
+    raise ValueError(result)
+ValueError: ? invalid color or coordinate
+
+
+>>> go.play('black','e5')
+''
+>>> go.genmove('white')
+'D2'
+>>> go.showboard()
+' \n   A B C D E\n 5 . X . . X 5\n 4 . O . + . 4\n 3 . . O . . 3\n 2 . + . O . 2     WHITE (O) has captured 0 stones\n 1 . . . X . 1     BLACK (X) has captured 0 stones\n   A B C D E\n\n'
+>>> print(go.showboard())
+ 
+   A B C D E
+ 5 . X . . X 5
+ 4 . O . + . 4
+ 3 . . O . . 3
+ 2 . + . O . 2     WHITE (O) has captured 0 stones
+ 1 . . . X . 1     BLACK (X) has captured 0 stones
+   A B C D E
+
+
+>>> 
