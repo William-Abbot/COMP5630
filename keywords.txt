@@ -1,0 +1,7 @@
+Multilayer Perceptron
+Learned Behavior
+Kernel
+Convolution
+Generalized Gameplay
+Solved Games
+Go
